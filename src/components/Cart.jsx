@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showCartPage } from "../redux/action";
 import ShowCartItem from "./ShowCartItem";
+import "../style.scss";
 import styled from "styled-components";
 const Main = styled.div`
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 25px;
   padding: 40px 60px;
-  box-sizing: border-box;
+  box-sizing: border-box; */
 `;
 const Cart = () => {
   const [sum, setSum] = useState(0);
@@ -27,9 +28,9 @@ const Cart = () => {
   }, [store]);
   return (
     <>
-      {sum > 0 ? <h1>price={sum}</h1> : <h1>Please Added Product</h1>}
+      {sum > 0 ? <h1>price={sum}</h1> : <h1>Please Add Product</h1>}
 
-      <Main>
+      <Main className="proDiv">
         {store.map((el) => {
           return <ShowCartItem key={el.id} value={el} />;
         })}

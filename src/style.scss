@@ -24,3 +24,23 @@ color:green;
 .remove:hover{
 color:red;
 }
+.proDiv{
+    display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        padding: 40px 60px;
+        box-sizing: border-box;
+}
+   @media all and (min-width: 781px)  {
+       .proDiv {
+           grid-template-columns: repeat(2, 1fr);
+       }
+   }
+
+        @media all and (min-width: 400px) and (max-width: 780px) {
+            .proDiv {
+                grid-template-columns: repeat(1, 1fr);
+            }
+    
+           
+        }
