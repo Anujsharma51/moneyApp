@@ -12,9 +12,11 @@ export const ShowData = (payload) => ({
   payload,
 });
 export const getData = () => (dispatch) => {
-  axios.get("http://localhost:8080/data").then((response) => {
-    dispatch(ShowData(response.data));
-  });
+  axios
+    .get("https://secret-headland-19295.herokuapp.com/data")
+    .then((response) => {
+      dispatch(ShowData(response.data));
+    });
 };
 
 export const showCart = (payload) => ({
