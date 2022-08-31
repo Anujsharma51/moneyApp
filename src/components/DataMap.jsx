@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { addedCart, count } from "../redux/action";
 const Main = styled.div`
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -28,12 +31,31 @@ const Img = styled.img`
 `;
 const DataMap = (prop) => {
   const [counter, setCouneter] = useState(1);
-  const [show, setShow] = useState(false);
+  const [btn, setBtn] = useState(false);
   const { id, image, price, rating, title, brand } = prop.value;
+  const dispatch = useDispatch();
+  const store = useSelector((store) => store.data);
+  const store1 = useSelector((store) => store.cart);
 
-  const handleAdd = () => {
-    setShow(true);
+  const handleAdd = (id) => {
+    setBtn(true);
+    dispatch(addedCart(id, store));
   };
+  const handleCount = (ans, id) => {
+    setCouneter(counter + ans);
+    dispatch(count(ans, id));
+  };
+
+  useEffect(() => {
+    if (store1.length > 0) {
+      store1.map((el) => {
+        if (el.id === id) {
+          setBtn(true);
+        }
+        return el;
+      });
+    }
+  }, []);
   return (
     <Main>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -46,48 +68,56 @@ const DataMap = (prop) => {
 
       <div style={{ display: "flex", justifyContent: "space-evenly" }}>
         <div>
-          {show ? (
-            <>
-              <button
-                style={{
-                  background: "blue",
-                  borderRadius: "5px",
-                  border: "none",
-                  fontSize: "18px",
-                  margin: "7px",
-                }}
-                onClick={() => setCouneter(counter > 0 ? counter - 1 : 0)}
-              >
-                -
-              </button>
-              {counter}
-              <button
-                style={{
-                  background: "blue",
-                  borderRadius: "5px",
-                  border: "none",
-                  fontSize: "18px",
-                  margin: "7px",
-                }}
-                onClick={() => setCouneter(counter + 1)}
-              >
-                +
-              </button>
-            </>
+          {!btn ? (
+            <Button
+              onClick={() => {
+                handleAdd(id);
+              }}
+            >
+              Add to Cart
+            </Button>
           ) : (
-            ""
+            <Button style={{ cursor: "not-allowed" }} disabled={true}>
+              Added to Cart
+            </Button>
           )}
+          {/* )} */}
         </div>
-        <Button
-          onClick={() => {
-            handleAdd();
-          }}
-        >
-          Add to Cart
-        </Button>
       </div>
     </Main>
   );
 };
-
+// {
+//   /* {show ? (
+//             <>
+//               <button
+//                 style={{
+//                   background: "blue",
+//                   borderRadius: "5px",
+//                   border: "none",
+//                   fontSize: "18px",
+//                   margin: "7px",
+//                 }}
+//                 onClick={() => handleCount(-1, id)}
+//               >
+//                 -
+//               </button>
+//               {counter}
+//               <button
+//                 style={{
+//                   background: "blue",
+//                   borderRadius: "5px",
+//                   border: "none",
+//                   fontSize: "18px",
+//                   margin: "7px",
+//                 }}
+//                 onClick={() => handleCount(1, id)}
+//               >
+//                 +
+//               </button>
+//             </> */
+// }
+// {
+//   /* ) : ( */
+// }
 export default DataMap;

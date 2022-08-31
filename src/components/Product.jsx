@@ -19,7 +19,6 @@ const Product = () => {
     dispatch(getData());
   }, []);
   const store = useSelector((store) => store.data);
-  console.log("store:", store);
 
   return (
     <Main>
