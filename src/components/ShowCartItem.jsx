@@ -18,7 +18,7 @@ const ShowCartItem = (prop) => {
   const { id, image, price, rating, title, brand } = prop.value;
   const dispatch = useDispatch();
   const handleCount = (ans, id) => {
-    setCouneter(counter >= 0 ? counter + ans : 1);
+    setCouneter(counter > 0 ? counter + ans : 1);
 
     dispatch(count(ans, id));
   };
@@ -53,6 +53,7 @@ const ShowCartItem = (prop) => {
                 fontSize: "18px",
                 margin: "7px",
               }}
+              disabled={counter === 1}
               onClick={() => handleCount(-1, id)}
             >
               -
